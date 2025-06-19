@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Switch Electrical Solutions - Email Signature Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #313031;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #313031;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #FEEA02;
+            outline: none;
+        }
+        
+        .btn {
+            background-color: #FEEA02;
+            color: #313031;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #e6d302;
+        }
+        
+        .preview-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+
+        
+        .signature-preview {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: white;
+            margin-top: 10px;
+        }
+        
+        .copy-btn {
+            background-color: #313031;
+            color: white;
+        }
+        
+        .copy-btn:hover {
+            background-color: #555;
+        }
+        
+        .success-message {
+            color: #28a745;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Switch Electrical Solutions<br>Email Signature Generator</h1>
+        
+        <form id="signatureForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="e.g., CAROL HIGGINS" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="position">Position:</label>
+                <input type="text" id="position" name="position" placeholder="e.g., Office Manager" required>
+            </div>
+            
+            <button type="submit" class="btn">Generate Signature</button>
+        </form>
+        
+        <div id="output" class="preview-section" style="display: none;">
+            <h3>Email Signature Preview:</h3>
+            <div id="signaturePreview" class="signature-preview"></div>
+            
+            <div style="margin-top: 15px;">
+                <button type="button" id="copyBtn" class="btn copy-btn">Copy Signature</button>
+                <span id="copySuccess" class="success-message" style="display: none;">✓ Copied! Now paste into your email client.</span>
+            </div>
+            
+            <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                <strong>Instructions:</strong> Click "Copy Signature" above, then paste (Ctrl+V or Cmd+V) into your email client's signature settings.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('signatureForm');
+        const output = document.getElementById('output');
+        const signaturePreview = document.getElementById('signaturePreview');
+        const copyBtn = document.getElementById('copyBtn');
+        const copySuccess = document.getElementById('copySuccess');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim().toUpperCase();
+            const position = document.getElementById('position').value.trim();
+            
+            if (!name || !position) {
+                alert('Please fill in both name and position fields.');
+                return;
+            }
+            
+            generateSignature(name, position);
+        });
+
+        copyBtn.addEventListener('click', function() {
+            // Create a range and select the signature content
+            const range = document.createRange();
+            range.selectNodeContents(signaturePreview);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            try {
+                // Try to copy the selected content
+                document.execCommand('copy');
+                selection.removeAllRanges();
+                
+                copySuccess.style.display = 'inline';
+                setTimeout(() => {
+                    copySuccess.style.display = 'none';
+                }, 3000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                alert('Copy failed. Please manually select the signature above and copy it (Ctrl+C or Cmd+C).');
+            }
+        });
+
+        function generateSignature(name, position) {
+            const signatureHTML = `<!-- Email Signature Table -->
+<table cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.4; border-collapse: collapse; max-width: 600px;">
+    <tr>
+        <td style="padding: 20px 0;">
+            
+            <!-- Main Content Table -->
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; width: 100%;">
+                
+                <!-- Main Row: Logo + Divider + Contact Details -->
+                <tr>
+                    <!-- Logo Column -->
+                    <td style="vertical-align: top; width: 160px;">
+                        <!-- Logo -->
+                        <a href="https://switchelectrical.je/" style="text-decoration: none;">
+                            <div style="background-color: #313031; padding: 45px 10px; display: inline-block;">
+                                <img src="imgs/switch-logo-with-tagline.png" alt="Switch Electrical Solutions" style="width: 130px; height: auto; display: block; border: none;" />
+                            </div>
+                        </a>
+                        
+                        <!-- CTA Button directly under logo -->
+                        <div style="padding-top: 5px;">
+                            <div style="background-color: #FEEA02; padding: 8px 0; display: block; width: 150px; text-align: center;">
+                                <a href="https://switchelectrical.je/contact/#quote" style="color: #000000; text-decoration: none; font-weight: bold; font-size: 13px;">
+                                    Request a Quote
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!-- Yellow Divider -->
+                    <td style="vertical-align: top; width: 4px; padding: 0 20px;">
+                        <div style="width: 4px; height: 180px; background-color: #FEEA02;"></div>
+                    </td>
+                    
+                    <!-- Contact Details Column -->
+                    <td style="vertical-align: top; width: auto;">
+                        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="color: #313031; font-size: 18px; font-weight: bold; padding-bottom: 4px;">
+                                    ${name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #313031; font-size: 15px; padding-bottom: 15px;">
+                                    ${position}
+                                </td>
+                            </tr>
+                            
+                            <!-- Contact Details -->
+                            <tr>
+                                <td style="color: #313031; font-size: 13px; padding-bottom: 5px;">
+                                    <strong>Address:</strong> Rear of Co-Op, La Grande Route De St Martin,<br/> St Saviour, Jersey C.I. JE2 7GT
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #313031; font-size: 13px; padding-bottom: 3px;">
+                                    <strong>Tel:</strong> <a href="tel:+441534888719" style="color: #FEEA02; text-decoration: none;">01534 888719</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #313031; font-size: 13px; padding-bottom: 3px;">
+                                    <strong>Email:</strong> <a href="mailto:info@switchelectrical.je" style="color: #FEEA02; text-decoration: none;">info@switchelectrical.je</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #313031; font-size: 13px;">
+                                    <strong>Web:</strong> <a href="https://www.switchelectrical.je" style="color: #FEEA02; text-decoration: none;">www.switchelectrical.je</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <!-- Bottom Row: Tagline spanning all columns -->
+                <tr>
+                    <td colspan="3" style="padding-top: 15px;">
+                        <div style="text-align: center;">
+                            <span style="color: #313031; font-size: 16px; font-style: italic;">
+                                Your go-to electrical solutions provider in Jersey for commercial and domestic
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+        </td>
+    </tr>
+</table>`;
+
+            // Display the preview
+            signaturePreview.innerHTML = signatureHTML;
+            
+            // Show the output section
+            output.style.display = 'block';
+            
+            // Scroll to the output
+            output.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html> 
