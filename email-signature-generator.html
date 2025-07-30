@@ -163,6 +163,17 @@
                             <div>Square Logo</div>
                         </label>
                     </div>
+                    <div class="logo-option" data-logo="dual">
+                        <input type="radio" id="dualLogo" name="logoStyle" value="dual">
+                        <label for="dualLogo" style="cursor: pointer; font-weight: normal;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 5px; flex-wrap: wrap;">
+                                <img src="imgs/switch-logo.png" alt="Switch Logo" style="width: 35px; height: auto;">
+                                <img src="imgs/nic-logo.png" alt="NICEIC Logo" style="width: 25px; height: auto;">
+                                <img src="imgs/switch-solar-logo.png" alt="Switch Solar Logo" style="width: 35px; height: auto;">
+                            </div>
+                            <div>Dual Logo + NICEIC</div>
+                        </label>
+                    </div>
                 </div>
             </div>
             
@@ -246,11 +257,121 @@
         });
 
         function generateSignature(name, position, logoStyle) {
-            // Determine which logo to use
-            const logoSrc = logoStyle === 'eclipse' ? 'imgs/swtich-eclipse-logo-01.png' : 'imgs/swtich-black-logo-01.png';
-            const logoAlt = logoStyle === 'eclipse' ? 'Switch Electrical Solutions - Eclipse Logo' : 'Switch Electrical Solutions - Square Logo';
+            let signatureHTML = '';
             
-            const signatureHTML = `<!-- Email Signature Table -->
+            if (logoStyle === 'dual') {
+                // New dual logo layout with NICEIC certification
+                signatureHTML = `<!-- Email Signature - Dual Logo + NICEIC Layout -->
+<table cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.4; border-collapse: collapse; max-width: 600px;">
+    <tr>
+        <td style="padding: 20px 0;">
+            
+            <!-- Logo Row -->
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+                <tr>
+                    <td style="text-align: center;">
+                        <div style="display: inline-block; text-align: center;">
+                                                         <div style="display: inline-flex; align-items: center; justify-content: center; gap: 20px;">
+                                 <a href="https://switchelectrical.je/" style="text-decoration: none;">
+                                     <img src="imgs/switch-logo.png" alt="Switch Electrical Solutions" style="width: 200px; height: auto; display: block; border: none;" />
+                                 </a>
+                                 <img src="imgs/nic-logo.png" alt="NICEIC Approved Contractor" style="width: 130px; height: auto; display: block; border: none;" />
+                                 <a href="https://switchelectrical.je/" style="text-decoration: none;">
+                                     <img src="imgs/switch-solar-logo.png" alt="Switch Solar Solutions" style="width: 200px; height: auto; display: block; border: none;" />
+                                 </a>
+                             </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <!-- Contact Information -->
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; width: 100%;">
+                <tr>
+                    <td style="color: #313031; font-size: 18px; font-weight: bold; padding-bottom: 4px;">
+                        ${name}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #313031; font-size: 15px; padding-bottom: 15px;">
+                        ${position}
+                    </td>
+                </tr>
+                
+                <!-- Address with icon -->
+                <tr>
+                    <td style="padding-bottom: 5px;">
+                        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="vertical-align: top; width: 20px; padding-right: 8px;">
+                                    <img src="imgs/location-icon.png" alt="Address" style="width: 16px; height: 16px; margin-top: 2px;" />
+                                </td>
+                                <td style="color: #313031; font-size: 13px;">
+                                    <strong>Address:</strong> Rear of Co-Op, La Grande Route De St Martin, St Saviour, Jersey C.I. JE2 7GT
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <!-- Phone with icon -->
+                <tr>
+                    <td style="padding-bottom: 3px;">
+                        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="vertical-align: top; width: 20px; padding-right: 8px;">
+                                    <img src="imgs/phone-icon.png" alt="Phone" style="width: 16px; height: 16px; margin-top: 2px;" />
+                                </td>
+                                <td style="color: #313031; font-size: 13px;">
+                                    <strong>Tel:</strong> <a href="tel:+441534888719" style="color: #FEEA02; text-decoration: none;">01534 888719</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <!-- Email with icon -->
+                <tr>
+                    <td style="padding-bottom: 3px;">
+                        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="vertical-align: top; width: 20px; padding-right: 8px;">
+                                    <img src="imgs/email-icon.png" alt="Email" style="width: 16px; height: 16px; margin-top: 2px;" />
+                                </td>
+                                <td style="color: #313031; font-size: 13px;">
+                                    <strong>Email:</strong> <a href="mailto:info@switchelectrical.je" style="color: #FEEA02; text-decoration: none;">info@switchelectrical.je</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <!-- Website with icon -->
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="vertical-align: top; width: 20px; padding-right: 8px;">
+                                    <img src="imgs/web-icon.png" alt="Website" style="width: 16px; height: 16px; margin-top: 2px;" />
+                                </td>
+                                <td style="color: #313031; font-size: 13px;">
+                                    <strong>Web:</strong> <a href="https://www.switchelectrical.je" style="color: #FEEA02; text-decoration: none;">www.switchelectrical.je</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            
+        </td>
+    </tr>
+</table>`;
+            } else {
+                // Original designs (eclipse and square)
+                const logoSrc = logoStyle === 'eclipse' ? 'imgs/swtich-eclipse-logo-01.png' : 'imgs/swtich-black-logo-01.png';
+                const logoAlt = logoStyle === 'eclipse' ? 'Switch Electrical Solutions - Eclipse Logo' : 'Switch Electrical Solutions - Square Logo';
+                
+                signatureHTML = `<!-- Email Signature Table -->
 <table cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.4; border-collapse: collapse; max-width: 600px;">
     <tr>
         <td style="padding: 20px 0;">
@@ -338,6 +459,7 @@
         </td>
     </tr>
 </table>`;
+            }
 
             // Display the preview
             signaturePreview.innerHTML = signatureHTML;
